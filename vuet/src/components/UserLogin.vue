@@ -16,19 +16,22 @@
                     <el-button type="primary" round class="Login-Button" @click="submitForm">Login</el-button>
                 </el-form-item>
             </el-form>
-            
-            <div class="register">Register new account</div>
+            <div class="register" @click="navigateRegister">Register new account</div>
         </div>
     </div>
 </template>
+
 <script>
-import { defineComponent, ref} from 'vue'
+import { defineComponent, ref} from 'vue';
+import {useRouter} from 'vue-router';
 export default defineComponent({
+  name: "UserLogin",
   setup() {
     const LoginForm = ref({
       username: '',
       password: ''
-    });    
+    });
+    const router=useRouter()
     const rules = {
         username: [
             { required: true, message: '请输入用户名', trigger: 'blur' }
@@ -42,10 +45,14 @@ export default defineComponent({
     const submitForm = () => {
       console.log(LoginForm.value); 
     };
+    function navigateRegister(){
+      router.push({ name: "UserRegister" });
+    }
     return {
       LoginForm,
       rules,
-      submitForm
+      submitForm,
+      navigateRegister
     };
   }
 });
